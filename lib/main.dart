@@ -1,125 +1,168 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_animate/flutter_animate.dart';
 
 void main() {
-  runApp(const MyApp());
+  runApp(DeveloperPortfolio());
 }
 
-class MyApp extends StatelessWidget {
-  const MyApp({super.key});
-
-  // This widget is the root of your application.
+class DeveloperPortfolio extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Demo',
+      title: 'Developer Portfolio',
       theme: ThemeData(
-        // This is the theme of your application.
-        //
-        // TRY THIS: Try running your application with "flutter run". You'll see
-        // the application has a purple toolbar. Then, without quitting the app,
-        // try changing the seedColor in the colorScheme below to Colors.green
-        // and then invoke "hot reload" (save your changes or press the "hot
-        // reload" button in a Flutter-supported IDE, or press "r" if you used
-        // the command line to start the app).
-        //
-        // Notice that the counter didn't reset back to zero; the application
-        // state is not lost during the reload. To reset the state, use hot
-        // restart instead.
-        //
-        // This works for code too, not just values: Most code changes can be
-        // tested with just a hot reload.
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
+        colorScheme: ColorScheme.fromSeed(seedColor: Colors.blueGrey),
         useMaterial3: true,
+        textTheme: TextTheme(
+          headline1: TextStyle(fontSize: 32.0, fontWeight: FontWeight.bold, color: Colors.white),
+          headline6: TextStyle(fontSize: 20.0, fontStyle: FontStyle.italic, color: Colors.white70),
+          bodyText2: TextStyle(fontSize: 16.0, fontFamily: 'Hind', color: Colors.white60),
+        ),
       ),
-      home: const MyHomePage(title: 'Flutter Demo Home Page'),
+      home: HomePage(),
     );
   }
 }
 
-class MyHomePage extends StatefulWidget {
-  const MyHomePage({super.key, required this.title});
-
-  // This widget is the home page of your application. It is stateful, meaning
-  // that it has a State object (defined below) that contains fields that affect
-  // how it looks.
-
-  // This class is the configuration for the state. It holds the values (in this
-  // case the title) provided by the parent (in this case the App widget) and
-  // used by the build method of the State. Fields in a Widget subclass are
-  // always marked "final".
-
-  final String title;
-
+class HomePage extends StatelessWidget {
   @override
-  State<MyHomePage> createState() => _MyHomePageState();
+  Widget build(BuildContext context) {
+    return Scaffold(
+      backgroundColor: Colors.blueGrey[900],
+      body: SingleChildScrollView(
+        child: Padding(
+          padding: const EdgeInsets.all(16.0),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Center(
+                child: CircleAvatar(
+                  radius: 80,
+                  backgroundImage: AssetImage('assets/profile.jpg'), // Your profile image
+                ).animate().fadeIn(duration: 1000.ms).scale(), // Adding fade-in and scale animation
+              ),
+              SizedBox(height: 20),
+              Center(
+                child: Text('John Doe', style: Theme.of(context).textTheme.headline1)
+                  .animate().fadeIn(duration: 1200.ms).move(begin: Offset(-50, 0), curve: Curves.easeInOut), // Adding text animation
+              ),
+              SizedBox(height: 10),
+              Center(
+                child: Text('Full Stack Developer & Web Designer', style: Theme.of(context).textTheme.headline6)
+                  .animate().fadeIn(duration: 1400.ms).move(begin: Offset(50, 0), curve: Curves.easeInOut), // Adding text animation
+              ),
+              SizedBox(height: 30),
+              Text('About Me', style: Theme.of(context).textTheme.headline1)
+                .animate().fadeIn(duration: 1600.ms).move(begin: Offset(0, -50), curve: Curves.easeInOut), // Adding text animation
+              SizedBox(height: 10),
+              Text(
+                'Passionate developer with experience in Flutter, Dart, and backend technologies. '
+                'I love building beautiful and functional applications.',
+                style: Theme.of(context).textTheme.bodyText2,
+              ).animate().fadeIn(duration: 1800.ms).move(begin: Offset(0, 50), curve: Curves.easeInOut), // Adding text animation
+              SizedBox(height: 30),
+              Text('Skills', style: Theme.of(context).textTheme.headline1)
+                .animate().fadeIn(duration: 2000.ms).move(begin: Offset(-50, 0), curve: Curves.easeInOut), // Adding text animation
+              SizedBox(height: 10),
+              SkillCard(skill: 'Flutter', level: 'Advanced').animate().fadeIn(duration: 2200.ms).move(begin: Offset(50, 0), curve: Curves.easeInOut),
+              SkillCard(skill: 'Dart', level: 'Advanced').animate().fadeIn(duration: 2400.ms).move(begin: Offset(-50, 0), curve: Curves.easeInOut),
+              SkillCard(skill: 'Web Design', level: 'Expert').animate().fadeIn(duration: 2600.ms).move(begin: Offset(50, 0), curve: Curves.easeInOut),
+              SkillCard(skill: 'JavaScript', level: 'Intermediate').animate().fadeIn(duration: 2800.ms).move(begin: Offset(-50, 0), curve: Curves.easeInOut),
+              SkillCard(skill: 'UI/UX Design', level: 'Expert').animate().fadeIn(duration: 3000.ms).move(begin: Offset(50, 0), curve: Curves.easeInOut),
+              SizedBox(height: 30),
+              Text('Projects', style: Theme.of(context).textTheme.headline1)
+                .animate().fadeIn(duration: 3200.ms).move(begin: Offset(-50, 0), curve: Curves.easeInOut), // Adding text animation
+              SizedBox(height: 10),
+              ProjectCard(
+                title: 'Portfolio Website',
+                description: 'A personal portfolio website built with Flutter showcasing my projects and skills.',
+                link: 'https://github.com/johndoe/portfolio-website'
+              ).animate().fadeIn(duration: 3400.ms).move(begin: Offset(50, 0), curve: Curves.easeInOut), // Adding card animation
+              ProjectCard(
+                title: 'E-commerce App',
+                description: 'An e-commerce application with seamless UI and integrated payment system.',
+                link: 'https://github.com/johndoe/e-commerce-app'
+              ).animate().fadeIn(duration: 3600.ms).move(begin: Offset(-50, 0), curve: Curves.easeInOut), // Adding card animation
+              ProjectCard(
+                title: 'Chat Application',
+                description: 'A real-time chat application with Firebase backend for messaging.',
+                link: 'https://github.com/johndoe/chat-application'
+              ).animate().fadeIn(duration: 3800.ms).move(begin: Offset(50, 0), curve: Curves.easeInOut), // Adding card animation
+              SizedBox(height: 30),
+              Text('Contact', style: Theme.of(context).textTheme.headline1)
+                .animate().fadeIn(duration: 4000.ms).move(begin: Offset(0, 50), curve: Curves.easeInOut), // Adding text animation
+              SizedBox(height: 10),
+              Text('Email: john.doe@example.com', style: Theme.of(context).textTheme.bodyText2)
+                .animate().fadeIn(duration: 4200.ms).move(begin: Offset(0, -50), curve: Curves.easeInOut), // Adding text animation
+              Text('LinkedIn: linkedin.com/in/johndoe', style: Theme.of(context).textTheme.bodyText2)
+                .animate().fadeIn(duration: 4400.ms).move(begin: Offset(0, -50), curve: Curves.easeInOut), // Adding text animation
+              Text('GitHub: github.com/johndoe', style: Theme.of(context).textTheme.bodyText2)
+                .animate().fadeIn(duration: 4600.ms).move(begin: Offset(0, -50), curve: Curves.easeInOut), // Adding text animation
+            ],
+          ),
+        ),
+      ),
+    );
+  }
 }
 
-class _MyHomePageState extends State<MyHomePage> {
-  int _counter = 0;
+class ProjectCard extends StatelessWidget {
+  final String title;
+  final String description;
+  final String link;
 
-  void _incrementCounter() {
-    setState(() {
-      // This call to setState tells the Flutter framework that something has
-      // changed in this State, which causes it to rerun the build method below
-      // so that the display can reflect the updated values. If we changed
-      // _counter without calling setState(), then the build method would not be
-      // called again, and so nothing would appear to happen.
-      _counter++;
-    });
-  }
+  ProjectCard({required this.title, required this.description, required this.link});
 
   @override
   Widget build(BuildContext context) {
-    // This method is rerun every time setState is called, for instance as done
-    // by the _incrementCounter method above.
-    //
-    // The Flutter framework has been optimized to make rerunning build methods
-    // fast, so that you can just rebuild anything that needs updating rather
-    // than having to individually change instances of widgets.
-    return Scaffold(
-      appBar: AppBar(
-        // TRY THIS: Try changing the color here to a specific color (to
-        // Colors.amber, perhaps?) and trigger a hot reload to see the AppBar
-        // change color while the other colors stay the same.
-        backgroundColor: Theme.of(context).colorScheme.inversePrimary,
-        // Here we take the value from the MyHomePage object that was created by
-        // the App.build method, and use it to set our appbar title.
-        title: Text(widget.title),
-      ),
-      body: Center(
-        // Center is a layout widget. It takes a single child and positions it
-        // in the middle of the parent.
+    return Card(
+      color: Colors.blueGrey[800],
+      elevation: 5,
+      margin: EdgeInsets.symmetric(vertical: 10),
+      child: Padding(
+        padding: const EdgeInsets.all(8.0),
         child: Column(
-          // Column is also a layout widget. It takes a list of children and
-          // arranges them vertically. By default, it sizes itself to fit its
-          // children horizontally, and tries to be as tall as its parent.
-          //
-          // Column has various properties to control how it sizes itself and
-          // how it positions its children. Here we use mainAxisAlignment to
-          // center the children vertically; the main axis here is the vertical
-          // axis because Columns are vertical (the cross axis would be
-          // horizontal).
-          //
-          // TRY THIS: Invoke "debug painting" (choose the "Toggle Debug Paint"
-          // action in the IDE, or press "p" in the console), to see the
-          // wireframe for each widget.
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            const Text(
-              'You have pushed the button this many times:',
-            ),
-            Text(
-              '$_counter',
-              style: Theme.of(context).textTheme.headlineMedium,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(title, style: Theme.of(context).textTheme.headline6),
+            SizedBox(height: 5),
+            Text(description, style: Theme.of(context).textTheme.bodyText2),
+            SizedBox(height: 5),
+            GestureDetector(
+              onTap: () {
+                // Handle link tap
+              },
+              child: Text(link, style: TextStyle(color: Colors.blue, decoration: TextDecoration.underline)),
             ),
           ],
         ),
       ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: _incrementCounter,
-        tooltip: 'Increment',
-        child: const Icon(Icons.add),
-      ), // This trailing comma makes auto-formatting nicer for build methods.
+    );
+  }
+}
+
+class SkillCard extends StatelessWidget {
+  final String skill;
+  final String level;
+
+  SkillCard({required this.skill, required this.level});
+
+  @override
+  Widget build(BuildContext context) {
+    return Card(
+      color: Colors.blueGrey[800],
+      elevation: 5,
+      margin: EdgeInsets.symmetric(vertical: 10),
+      child: Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Text(skill, style: Theme.of(context).textTheme.headline6),
+            Text(level, style: Theme.of(context).textTheme.bodyText2),
+          ],
+        ),
+      ),
     );
   }
 }
